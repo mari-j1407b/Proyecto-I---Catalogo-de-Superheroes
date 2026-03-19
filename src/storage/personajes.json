@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nombre": "Spider-Man",
+        "descripcion": "Heroe de Nueva York",
+        "imagen": "spiderman.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "Iron Man",
+        "descripcion": "Genio millonario",
+        "imagen": "ironman.jpg"
+    }
+]
