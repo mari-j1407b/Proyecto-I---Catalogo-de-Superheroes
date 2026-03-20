@@ -1,83 +1,29 @@
-from utils.file_manager import guardar_datos, cargar_datos
-from models.personaje import Personaje
-from models.evento import Evento
-from models.comic import Comic
-import os
+import requests
 
+API_KEY = "f4748b79d0a351345220d671c07880ff5ebb10bc"
+BASE_URL = "https://comicvine.gamespot.com/api"
+HEADERS = {"User-Agent": "MiProyectoMarvel"}
 
-def datos_iniciales():
-    p1 = Personaje(1, "Spider-Man", "Heroe de Nueva York", "spiderman.jpg")
-    p2 = Personaje(2, "Iron Man", "Genio millonario", "ironman.jpg")
-
-    return [p1, p2]
-
-
-def guardar_personajes(personajes):
-    lista = [p.to_dict() for p in personajes]
-    guardar_datos("storage/personajes.json", lista)
-
-
-def cargar_personajes():
-    datos = cargar_datos("storage/personajes.json")
-
-    personajes = []
-
-    for p in datos:
-        personaje = Personaje(
-            p["id"],
-            p["nombre"],
-            p["descripcion"],
-            p["imagen"]
-        )
-        personajes.append(personaje)
-
-    return personajes
-
+def obtener_comics():
+    url = f"{BASE_URL}/issues/?api_key={API_KEY}&format=json&limit=10"
+    res = requests.get(url, headers=HEADERS)
+    return res.json()['results'] if res.status_code == 200 else []
 
 def obtener_personajes():
-    ruta = "storage/personajes.json"
+    url = f"{BASE_URL}/characters/?api_key={API_KEY}&format=json&limit=10"
+    res = requests.get(url, headers=HEADERS)
+    return res.json()['results'] if res.status_code == 200 else []
 
-    if os.path.exists(ruta):
-        print("📂 Cargando desde JSON...")
-        return cargar_personajes()
-    else:
-        print("🌐 Generando datos iniciales...")
-        personajes = datos_iniciales()
-        guardar_personajes(personajes)
-        return personajes
+def obtener_detalle_comic(comic_id):
+    """Tarea: Descargar datos detallados de UN cómic"""
+    url = f"{BASE_URL}/issue/4000-{comic_id}/?api_key={API_KEY}&format=json"
+    res = requests.get(url, headers=HEADERS)
+    return res.json()['results'] if res.status_code == 200 else {}
 
-
-def obtener_comics_personaje(id_personaje):
-    comics = []
-
-    if id_personaje == 1:
-        comics.append(Comic(1, "Amazing Fantasy #15", "Primera aparición", "1962", "123", "img.jpg"))
-
-    return comics
-
-
-def obtener_eventos_personaje(id_personaje):
-    eventos = []
-
-    if id_personaje == 1:
-        eventos.append(Evento(1, "Civil War", "Conflicto de héroes"))
-        eventos.append(Evento(2, "Secret Wars", "Multiverso"))
-
-    return eventos
-
-
-def obtener_personajes_completos():
-    personajes = obtener_personajes()
-
-    for p in personajes:
-        eventos = obtener_eventos_personaje(p.id)
-        comics = obtener_comics_personaje(p.id)
-
-        for e in eventos:
-            p.agregar_evento(e)
-
-        for c in comics:
-            p.agregar_comic(c)
-
-    return personajes
-
+def obtener_eventos_personaje(personaje_id):
+    """Tarea: Ver en qué 'eventos' (equipos) está un personaje"""
+    url = f"{BASE_URL}/character/4005-{personaje_id}/?api_key={API_KEY}&format=json"
+    res = requests.get(url, headers=HEADERS)
+    if res.status_code == 200:
+        return res.json()['results'].get('teams', [])
+    return []
