@@ -25,7 +25,7 @@ class lista_circular():
             actual = actual.siguiente
             if actual == self.cabeza:
                 break
-        
+                
             
 
 
