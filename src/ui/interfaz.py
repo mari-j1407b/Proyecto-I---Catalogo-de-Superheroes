@@ -29,17 +29,17 @@ class Ui_VentanaPrincipal(object):
         self.lineEdit = QtWidgets.QLineEdit(parent=self.Comisframe)
         self.lineEdit.setGeometry(QtCore.QRect(0, 170, 511, 41))
         self.lineEdit.setStyleSheet("QLineEdit {\n"
-"    background-color: #1a1a1a; /* Negro mate elegante */\n"
-"    color: #fdf5e6; /* Texto color crema para que combine */\n"
-"    border: 2px solid #1a1a1a; /* Borde color canela */\n"
-"    border-radius: 15px; /* Esquinas bien redondas */\n"
+"    background-color: #1a1a1a; \n"
+"    color: #fdf5e6; \n"
+"    border: 2px solid #1a1a1a;\n"
+"    border-radius: 15px; \n"
 "    padding-left: 15px;\n"
 "    font-size: 14px;\n"
-"    selection-background-color: #8b0000; /* Color al resaltar texto */\n"
+"    selection-background-color: #8b0000; \n"
 "}\n"
 "\n"
 "QLineEdit:focus {\n"
-"    border: 2px solid #8b0000; /* Cambia a rojo Marvel al hacer clic */\n"
+"    border: 2px solid #8b0000; \n"
 "}")
         self.lineEdit.setText("")
         self.lineEdit.setObjectName("lineEdit")
@@ -1055,7 +1055,8 @@ class Ui_VentanaPrincipal(object):
         self.stackedWidget_2.addWidget(self.page_5)
         self.comboBox = QtWidgets.QComboBox(parent=self.Comisframe)
         self.comboBox.setGeometry(QtCore.QRect(520, 170, 171, 41))
-        self.comboBox.setStyleSheet("QComboBox {\n"
+        self.comboBox.setStyleSheet("\n"
+"QComboBox {\n"
 "    background-color: #4200c7;\n"
 "    border-radius: 15px;\n"
 "    padding: 5px 15px;\n"
@@ -1070,18 +1071,80 @@ class Ui_VentanaPrincipal(object):
 "    width: 30px;\n"
 "}\n"
 "\n"
-"\n"
 "QComboBox::down-arrow {\n"
 "    image: none; \n"
-"\n"
 "    content: \"▼\"; \n"
 "    color: white;\n"
 "    font-size: 12px; \n"
 "    margin-right: 10px;\n"
+"}\n"
+"\n"
+"/* desplegable*/\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #4200c7; \n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"    selection-background-color: #5a1cd9; \n"
+"    selection-color: white;\n"
+"    border: none;\n"
+"    outline: 0px;\n"
+"    border-radius: 10px; \n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox {\n"
+"    combobox-popup: 0;\n"
 "}")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
+        self.btn_ant_comics = QtWidgets.QPushButton(parent=self.page_comics)
+        self.btn_ant_comics.setGeometry(QtCore.QRect(214, 583, 91, 41))
+        self.btn_ant_comics.setStyleSheet("QPushButton {\n"
+"    background-color: transparent; \n"
+"    border: none;               \n"
+"    color: #000000;               \n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    text-align: center;            \n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #da0649;              \n"
+"    cursor: pointer;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #8b0000             \n"
+"}")
+        self.btn_ant_comics.setObjectName("btn_ant_comics")
+        self.btn_sig_comics = QtWidgets.QPushButton(parent=self.page_comics)
+        self.btn_sig_comics.setGeometry(QtCore.QRect(380, 583, 101, 41))
+        self.btn_sig_comics.setStyleSheet("QPushButton {\n"
+"    background-color: transparent; \n"
+"    border: none;               \n"
+"    color: #000000;               \n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    text-align: center;            \n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #da0649;              \n"
+"    cursor: pointer;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #8b0000           \n"
+"}")
+        self.btn_sig_comics.setObjectName("btn_sig_comics")
         self.stackedWidget.addWidget(self.page_comics)
         self.page_personajes = QtWidgets.QWidget()
         self.page_personajes.setObjectName("page_personajes")
@@ -1093,17 +1156,17 @@ class Ui_VentanaPrincipal(object):
         self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.Personajesframe)
         self.lineEdit_2.setGeometry(QtCore.QRect(0, 170, 511, 41))
         self.lineEdit_2.setStyleSheet("QLineEdit {\n"
-"    background-color: #1a1a1a; /* Negro mate elegante */\n"
-"    color: #fdf5e6; /* Texto color crema para que combine */\n"
-"    border: 2px solid #1a1a1a; /* Borde color canela */\n"
-"    border-radius: 15px; /* Esquinas bien redondas */\n"
+"    background-color: #1a1a1a; \n"
+"    color: #fdf5e6; \n"
+"    border: 2px solid #1a1a1a; \n"
+"    border-radius: 15px; \n"
 "    padding-left: 15px;\n"
 "    font-size: 14px;\n"
-"    selection-background-color: #8b0000; /* Color al resaltar texto */\n"
+"    selection-background-color: #8b0000; \n"
 "}\n"
 "\n"
 "QLineEdit:focus {\n"
-"    border: 2px solid #8b0000; /* Cambia a rojo Marvel al hacer clic */\n"
+"    border: 2px solid #8b0000; \n"
 "}")
         self.lineEdit_2.setText("")
         self.lineEdit_2.setObjectName("lineEdit_2")
@@ -2117,7 +2180,8 @@ class Ui_VentanaPrincipal(object):
         self.stackedWidget_3.addWidget(self.page_10)
         self.comboBox_2 = QtWidgets.QComboBox(parent=self.Personajesframe)
         self.comboBox_2.setGeometry(QtCore.QRect(520, 170, 171, 41))
-        self.comboBox_2.setStyleSheet("QComboBox {\n"
+        self.comboBox_2.setStyleSheet("\n"
+"QComboBox {\n"
 "    background-color: #8b777e;\n"
 "    border-radius: 15px;\n"
 "    padding: 5px 15px;\n"
@@ -2132,24 +2196,86 @@ class Ui_VentanaPrincipal(object):
 "    width: 30px;\n"
 "}\n"
 "\n"
-"\n"
 "QComboBox::down-arrow {\n"
 "    image: none; \n"
-"\n"
 "    content: \"▼\"; \n"
 "    color: white;\n"
 "    font-size: 12px; \n"
 "    margin-right: 10px;\n"
+"}\n"
+"\n"
+"/* desplegable*/\n"
+"QComboBox QAbstractItemView {\n"
+"    background-color: #8b777e; \n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"    selection-background-color: #a38d95; \n"
+"    selection-color: white;\n"
+"    border: none;\n"
+"    outline: 0px;\n"
+"    border-radius: 10px;\n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox {\n"
+"    combobox-popup: 0;\n"
 "}")
         self.comboBox_2.setObjectName("comboBox_2")
         self.comboBox_2.addItem("")
         self.comboBox_2.addItem("")
+        self.btn_sig_personajes = QtWidgets.QPushButton(parent=self.page_personajes)
+        self.btn_sig_personajes.setGeometry(QtCore.QRect(380, 583, 101, 41))
+        self.btn_sig_personajes.setStyleSheet("QPushButton {\n"
+"    background-color: transparent; \n"
+"    border: none;               \n"
+"    color: #000000;               \n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    text-align: center;            \n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #da0649;              \n"
+"    cursor: pointer;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #8b0000           \n"
+"}")
+        self.btn_sig_personajes.setObjectName("btn_sig_personajes")
+        self.btn_ant_personajes = QtWidgets.QPushButton(parent=self.page_personajes)
+        self.btn_ant_personajes.setGeometry(QtCore.QRect(214, 583, 91, 41))
+        self.btn_ant_personajes.setStyleSheet("QPushButton {\n"
+"    background-color: transparent; \n"
+"    border: none;               \n"
+"    color: #000000;               \n"
+"    font-weight: bold;\n"
+"    font-size: 14px;\n"
+"    text-align: center;            \n"
+"    padding: 10px;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:hover {\n"
+"    color: #da0649;              \n"
+"    cursor: pointer;\n"
+"}\n"
+"\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #8b0000             \n"
+"}")
+        self.btn_ant_personajes.setObjectName("btn_ant_personajes")
         self.stackedWidget.addWidget(self.page_personajes)
         self.sideBar = QtWidgets.QFrame(parent=self.centralwidget)
         self.sideBar.setGeometry(QtCore.QRect(-1, -1, 181, 671))
         self.sideBar.setAutoFillBackground(False)
         self.sideBar.setStyleSheet("#sideBar {\n"
-"    background-color: #333333; \n"
+"    background-color: #1a1a1a; \n"
 "    border: none;\n"
 "}")
         self.sideBar.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
@@ -2285,6 +2411,8 @@ class Ui_VentanaPrincipal(object):
         self.label_71.setText(_translate("VentanaPrincipal", "\"The Amazing Spider-Man: Beyond the Multiverse\""))
         self.comboBox.setItemText(0, _translate("VentanaPrincipal", "Nombre (A-Z)"))
         self.comboBox.setItemText(1, _translate("VentanaPrincipal", "Fecha (Mes y Año)"))
+        self.btn_ant_comics.setText(_translate("VentanaPrincipal", "◀ Anterior"))
+        self.btn_sig_comics.setText(_translate("VentanaPrincipal", "Siguiente ▶"))
         self.lineEdit_2.setPlaceholderText(_translate("VentanaPrincipal", "Buscar Personajes en el Catálogo..."))
         self.toolButton1_15.setText(_translate("VentanaPrincipal", "..."))
         self.label_21.setText(_translate("VentanaPrincipal", "\"The Amazing Spider-Man: Beyond the Multiverse\""))
@@ -2348,6 +2476,8 @@ class Ui_VentanaPrincipal(object):
         self.label_99.setText(_translate("VentanaPrincipal", "\"The Amazing Spider-Man: Beyond the Multiverse\""))
         self.comboBox_2.setItemText(0, _translate("VentanaPrincipal", "Nombre (A-Z)"))
         self.comboBox_2.setItemText(1, _translate("VentanaPrincipal", "Creador (A-Z)"))
+        self.btn_sig_personajes.setText(_translate("VentanaPrincipal", "Siguiente ▶"))
+        self.btn_ant_personajes.setText(_translate("VentanaPrincipal", "◀ Anterior"))
         self.btn_personajes.setText(_translate("VentanaPrincipal", "Personajes"))
         self.btn_comics.setText(_translate("VentanaPrincipal", "Cómics"))
         self.toolBar.setWindowTitle(_translate("VentanaPrincipal", "toolBar"))
