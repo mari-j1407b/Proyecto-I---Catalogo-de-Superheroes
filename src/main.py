@@ -1,13 +1,13 @@
 import sys
 import os
 import json
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel
 from ui.interfaz import Ui_VentanaPrincipal 
 from models.comic import Comic
 from models.personaje import Personaje
 from structures.lista_doble import ListaDoble
 
-# Configuración de rutas para asegurar que encuentre la carpeta 'data'
+# Configuración de rutas
 ruta_del_archivo = os.path.abspath(__file__)
 directorio_src = os.path.dirname(ruta_del_archivo)
 proyecto_raiz = os.path.dirname(directorio_src)
@@ -19,56 +19,46 @@ class MundoComic(QMainWindow):
         self.ui = Ui_VentanaPrincipal() 
         self.ui.setupUi(self)
         
-        # 1. Estructuras de Datos
         self.lista_comics = ListaDoble()
         self.lista_personajes = ListaDoble()
         
-        # 2. Carga de datos desde tu JSON
         self.cargar_datos_en_estructuras()
         
-        # 3. Conexiones: Menú Principal
+        # Conexiones
         self.ui.btn_comics.clicked.connect(self.mostrar_seccion_comics)
         self.ui.btn_personajes.clicked.connect(self.mostrar_seccion_personajes)
 
-        # 4. Navegación: Cómics (stackedWidget_2)
         self.ui.btn_sig_comics.clicked.connect(self.cambiar_pag_comics_sig)
         self.ui.btn_ant_comics.clicked.connect(self.cambiar_pag_comics_ant)
 
-        # 5. Navegación: Personajes (stackedWidget_3)
         self.ui.btn_sig_personajes.clicked.connect(self.cambiar_pag_personajes_sig)
         self.ui.btn_ant_personajes.clicked.connect(self.cambiar_pag_personajes_ant)
 
-        # Estado inicial
         self.ui.stackedWidget.setCurrentIndex(0)
         self.actualizar_labels_comics()
 
     def cargar_datos_en_estructuras(self):
-        """Carga datos usando los parámetros obligatorios de tus clases"""
         try:
             ruta_p = 'data/personajes_locales.json'
             if os.path.exists(ruta_p):
                 with open(ruta_p, 'r', encoding='utf-8') as f:
                     datos_p = json.load(f)
+
                     for p in datos_p:
-                        # Extraemos datos del JSON
                         id_val = p.get('id', 0)
                         nombre_val = p.get('name', 'N/A')
                         desc_val = p.get('deck', 'Sin descripción')
                         img_val = p.get('image', {}).get('small_url', '')
 
-                        # Crear Personaje (id, nombre, descripcion, imagen)
                         obj_p = Personaje(id_val, nombre_val, desc_val, img_val)
                         self.lista_personajes.insertar(obj_p)
                         
-                        # Crear Comic temporal (id, titulo, descripcion, fecha, isbn, imagen)
                         obj_c = Comic(id_val, nombre_val, desc_val, "2026", "N/A", img_val)
                         self.lista_comics.insertar(obj_c)
-            else:
-                print("⚠️ No se encontró data/personajes_locales.json")
         except Exception as e:
-            print(f"❌ Error en carga: {e}")
+            print(f"Error en carga: {e}")
 
-    # --- LÓGICA DE PÁGINAS ---
+    # --- NAVEGACIÓN ---
     def mostrar_seccion_comics(self):
         self.ui.stackedWidget.setCurrentIndex(0)
         self.actualizar_labels_comics()
@@ -101,7 +91,7 @@ class MundoComic(QMainWindow):
             sw.setCurrentIndex(sw.currentIndex() - 1)
             self.actualizar_labels_personajes()
 
-    # --- RENDERIZADO ---
+    # --- RENDER ---
     def actualizar_labels_comics(self):
         indice = self.ui.stackedWidget_2.currentIndex()
         mapeo = {
@@ -121,25 +111,29 @@ class MundoComic(QMainWindow):
         self.llenar_datos(mapeo.get(indice, []), self.lista_personajes, indice, "nombre")
 
     def llenar_datos(self, nombres_labels, lista, num_pag, atributo):
-        # Empezar desde la cabeza de la lista
         puntero = lista.cabeza
-        
-        # Saltar los elementos de las páginas anteriores (10 por página)
+
         for _ in range(num_pag * 10):
             if puntero:
                 puntero = puntero.siguiente
-        
-        for nombre in nombres_labels:
-            # Buscar el label dentro de self.ui
-            label_obj = getattr(self.ui, nombre, None)
+
+        sin_datos = True  # 👈 para detectar si no hay nada
+
+        for i, nombre in enumerate(nombres_labels):
+            label_obj = self.findChild(QLabel, nombre)
+
             if label_obj:
                 if puntero:
-                    # Obtener el valor (titulo o nombre) usando getattr para ser dinámicos
                     texto = getattr(puntero.dato, atributo, "N/A")
                     label_obj.setText(f'"{texto}"')
                     puntero = puntero.siguiente
+                    sin_datos = False
                 else:
-                    label_obj.setText("") # Si no hay más datos, limpiar el label
+                    # 👇 SOLO el primer label muestra el mensaje
+                    if i == 0 and sin_datos:
+                        label_obj.setText("No hay más resultados")
+                    else:
+                        label_obj.setText("")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
