@@ -56,17 +56,17 @@
        </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit {
-    background-color: #1a1a1a; /* Negro mate elegante */
-    color: #fdf5e6; /* Texto color crema para que combine */
-    border: 2px solid #1a1a1a; /* Borde color canela */
-    border-radius: 15px; /* Esquinas bien redondas */
+    background-color: #1a1a1a; 
+    color: #fdf5e6; 
+    border: 2px solid #1a1a1a;
+    border-radius: 15px; 
     padding-left: 15px;
     font-size: 14px;
-    selection-background-color: #8b0000; /* Color al resaltar texto */
+    selection-background-color: #8b0000; 
 }
 
 QLineEdit:focus {
-    border: 2px solid #8b0000; /* Cambia a rojo Marvel al hacer clic */
+    border: 2px solid #8b0000; 
 }</string>
        </property>
        <property name="text">
@@ -3164,7 +3164,8 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">QComboBox {
+        <string notr="true">
+QComboBox {
     background-color: #4200c7;
     border-radius: 15px;
     padding: 5px 15px;
@@ -3179,14 +3180,30 @@ QComboBox::drop-down {
     width: 30px;
 }
 
-
 QComboBox::down-arrow {
     image: none; 
-
     content: &quot;▼&quot;; 
     color: white;
     font-size: 12px; 
     margin-right: 10px;
+}
+
+/* desplegable*/
+QComboBox QAbstractItemView {
+    background-color: #4200c7; 
+    color: white;
+    font-weight: bold;
+    selection-background-color: #5a1cd9; 
+    selection-color: white;
+    border: none;
+    outline: 0px;
+    border-radius: 10px; 
+    padding: 10px;
+}
+
+
+QComboBox {
+    combobox-popup: 0;
 }</string>
        </property>
        <item>
@@ -3200,6 +3217,76 @@ QComboBox::down-arrow {
         </property>
        </item>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="btn_ant_comics">
+      <property name="geometry">
+       <rect>
+        <x>214</x>
+        <y>583</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent; 
+    border: none;               
+    color: #000000;               
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;            
+    padding: 10px;
+}
+
+
+QPushButton:hover {
+    color: #da0649;              
+    cursor: pointer;
+}
+
+
+QPushButton:pressed {
+    color: #8b0000             
+}</string>
+      </property>
+      <property name="text">
+       <string>◀ Anterior</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_sig_comics">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>583</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent; 
+    border: none;               
+    color: #000000;               
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;            
+    padding: 10px;
+}
+
+
+QPushButton:hover {
+    color: #da0649;              
+    cursor: pointer;
+}
+
+
+QPushButton:pressed {
+    color: #8b0000           
+}</string>
+      </property>
+      <property name="text">
+       <string>Siguiente ▶</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page_personajes">
@@ -3229,17 +3316,17 @@ QComboBox::down-arrow {
        </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit {
-    background-color: #1a1a1a; /* Negro mate elegante */
-    color: #fdf5e6; /* Texto color crema para que combine */
-    border: 2px solid #1a1a1a; /* Borde color canela */
-    border-radius: 15px; /* Esquinas bien redondas */
+    background-color: #1a1a1a; 
+    color: #fdf5e6; 
+    border: 2px solid #1a1a1a; 
+    border-radius: 15px; 
     padding-left: 15px;
     font-size: 14px;
-    selection-background-color: #8b0000; /* Color al resaltar texto */
+    selection-background-color: #8b0000; 
 }
 
 QLineEdit:focus {
-    border: 2px solid #8b0000; /* Cambia a rojo Marvel al hacer clic */
+    border: 2px solid #8b0000; 
 }</string>
        </property>
        <property name="text">
@@ -6337,7 +6424,8 @@ QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">QComboBox {
+        <string notr="true">
+QComboBox {
     background-color: #8b777e;
     border-radius: 15px;
     padding: 5px 15px;
@@ -6352,14 +6440,30 @@ QComboBox::drop-down {
     width: 30px;
 }
 
-
 QComboBox::down-arrow {
     image: none; 
-
     content: &quot;▼&quot;; 
     color: white;
     font-size: 12px; 
     margin-right: 10px;
+}
+
+/* desplegable*/
+QComboBox QAbstractItemView {
+    background-color: #8b777e; 
+    color: white;
+    font-weight: bold;
+    selection-background-color: #a38d95; 
+    selection-color: white;
+    border: none;
+    outline: 0px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+
+QComboBox {
+    combobox-popup: 0;
 }</string>
        </property>
        <item>
@@ -6373,6 +6477,76 @@ QComboBox::down-arrow {
         </property>
        </item>
       </widget>
+     </widget>
+     <widget class="QPushButton" name="btn_sig_personajes">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>583</y>
+        <width>101</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent; 
+    border: none;               
+    color: #000000;               
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;            
+    padding: 10px;
+}
+
+
+QPushButton:hover {
+    color: #da0649;              
+    cursor: pointer;
+}
+
+
+QPushButton:pressed {
+    color: #8b0000           
+}</string>
+      </property>
+      <property name="text">
+       <string>Siguiente ▶</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_ant_personajes">
+      <property name="geometry">
+       <rect>
+        <x>214</x>
+        <y>583</y>
+        <width>91</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: transparent; 
+    border: none;               
+    color: #000000;               
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;            
+    padding: 10px;
+}
+
+
+QPushButton:hover {
+    color: #da0649;              
+    cursor: pointer;
+}
+
+
+QPushButton:pressed {
+    color: #8b0000             
+}</string>
+      </property>
+      <property name="text">
+       <string>◀ Anterior</string>
+      </property>
      </widget>
     </widget>
    </widget>
@@ -6390,7 +6564,7 @@ QComboBox::down-arrow {
     </property>
     <property name="styleSheet">
      <string notr="true">#sideBar {
-    background-color: #333333; 
+    background-color: #1a1a1a; 
     border: none;
 }</string>
     </property>
