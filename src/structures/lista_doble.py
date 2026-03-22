@@ -10,7 +10,6 @@ class ListaDoble:
         self.cabeza = None
         self.cola = None
 
-    # ✅ Insertar al final
     def insertar(self, dato):
         nuevo = Nodo(dato)
 
@@ -21,21 +20,18 @@ class ListaDoble:
             nuevo.anterior = self.cola
             self.cola = nuevo
 
-    # ✅ Recorrer hacia adelante
     def recorrer_adelante(self):
         actual = self.cabeza
         while actual:
             print(actual.dato.nombre)
             actual = actual.siguiente
 
-    # ✅ Recorrer hacia atrás
     def recorrer_atras(self):
         actual = self.cola
         while actual:
             print(actual.dato.nombre)
             actual = actual.anterior
 
-    # ✅ Buscar por ID
     def buscar(self, id):
         actual = self.cabeza
         while actual:
