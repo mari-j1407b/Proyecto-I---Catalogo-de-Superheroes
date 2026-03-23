@@ -5,12 +5,12 @@ BASE_URL = "https://comicvine.gamespot.com/api"
 HEADERS = {"User-Agent": "MiProyectoMarvel"}
 
 def obtener_comics():
-    url = f"{BASE_URL}/issues/?api_key={API_KEY}&format=json&limit=10"
+    url = f"{BASE_URL}/issues/?api_key={API_KEY}&format=json&limit=100"
     res = requests.get(url, headers=HEADERS)
     return res.json()['results'] if res.status_code == 200 else []
 
 def obtener_personajes():
-    url = f"{BASE_URL}/characters/?api_key={API_KEY}&format=json&limit=10"
+    url = f"{BASE_URL}/characters/?api_key={API_KEY}&format=json&limit=100"
     res = requests.get(url, headers=HEADERS)
     return res.json()['results'] if res.status_code == 200 else []
 
