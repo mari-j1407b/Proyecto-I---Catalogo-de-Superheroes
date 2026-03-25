@@ -39,6 +39,8 @@ class MundoComic(QMainWindow):
 
         self.ui.btn_sig_personajes.clicked.connect(self.cambiar_pag_personajes_sig)
         self.ui.btn_ant_personajes.clicked.connect(self.cambiar_pag_personajes_ant)
+        # Conexiones de busqueda
+      
 
         self.ui.stackedWidget.setCurrentIndex(0)
         self.actualizar_labels_comics()
