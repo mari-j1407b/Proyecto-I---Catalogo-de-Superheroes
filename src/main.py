@@ -24,6 +24,12 @@ class MundoComic(QMainWindow):
         print("\n--- BOTONES REALES EN LA INTERFAZ ---")
         for b in self.findChildren(QToolButton):
             print(b.objectName())
+            print("\n--- BUSCANDO COMBOBOX Y BUSCADORES ---")
+        for cb in self.findChildren(QtWidgets.QComboBox):
+            print(f"ComboBox encontrado: {cb.objectName()}")
+        
+        for le in self.findChildren(QtWidgets.QLineEdit):
+            print(f"Buscador encontrado: {le.objectName()}")
         
         self.lista_comics = ListaDoble()
         self.lista_personajes = ListaDoble()
