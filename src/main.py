@@ -2,8 +2,8 @@ import sys
 import os
 import json
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QToolButton
-from PyQt6.QtGui import QIcon
-from ui.interfaz import Ui_VentanaPrincipal 
+from PyQt6.QtGui import QIcon, QPixmap
+from ui.Ui_interfaz import Ui_ventanaPrincipal 
 from models.comic import Comic
 from models.personaje import Personaje
 from structures.lista_doble import ListaDoble
@@ -17,10 +17,9 @@ os.chdir(proyecto_raiz)
 class MundoComic(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.ui = Ui_VentanaPrincipal() 
+        self.ui = Ui_ventanaPrincipal() 
         self.ui.setupUi(self)
         
-        # 🔥 DEBUG: ver nombres reales de botones
         print("\n--- BOTONES REALES EN LA INTERFAZ ---")
         for b in self.findChildren(QToolButton):
             print(b.objectName())
@@ -40,11 +39,8 @@ class MundoComic(QMainWindow):
         self.ui.btn_sig_personajes.clicked.connect(self.cambiar_pag_personajes_sig)
         self.ui.btn_ant_personajes.clicked.connect(self.cambiar_pag_personajes_ant)
         # Conexiones de busqueda
-      
-        self.ui.stackedWidget.setCurrentIndex(0) 
-        self.ui.stackedWidget_3.setCurrentIndex(0) 
+        self.ui.stackedWidget.setCurrentIndex(1) # Ir a Personajes
         self.actualizar_labels_personajes()
-
         self.actualizar_labels_comics()
 
     # --- CARGA ---
@@ -116,53 +112,79 @@ class MundoComic(QMainWindow):
 
     # --- RENDER ---
     def actualizar_labels_comics(self):
-        indice = self.ui.stackedWidget_2.currentIndex()
-        labels = {
-            0: ["label_12","label_13","label_34","label_35","label_36","label_37","label_38","label_39","label_40","label_41"],
-            1: ["label_52","label_53","label_54","label_55","label_56","label_57","label_58","label_59","label_60","label_61"],
-            2: ["label_62","label_63","label_64","label_65","label_66","label_67","label_68","label_69","label_70","label_71"]
-        }
-        self.llenar_datos(labels[indice], self.lista_comics, indice, "titulo", "comics")
+        sw = self.ui.stackedWidget_2
+        indice = sw.currentIndex()
+        
+        # Esto busca TODOS los labels que estén en la página que se ve ahorita
+        pagina_actual = sw.currentWidget()
+        labels_en_pantalla = pagina_actual.findChildren(QLabel)
+        
+        # Los ordenamos por nombre para que no se revuelvan (label_1, label_2...)
+        labels_en_pantalla.sort(key=lambda x: x.objectName())
+
+        self.llenar_datos(labels_en_pantalla, self.lista_comics, indice, "titulo", "comics")
 
     def actualizar_labels_personajes(self):
-        indice = self.ui.stackedWidget_3.currentIndex()
-        labels = {
-            0: ["label_89","label_88","label_87","label_86","label_85","label_84","label_83","label_82","label_81","label_80"],
-            1: ["label_79","label_78","label_77","label_76","label_75","label_74","label_73","label_72","label_22","label_21"],
-            2: ["label_99","label_98","label_97","label_96","label_95","label_94","label_93","label_92","label_91","label_90"]
-        }
-        self.llenar_datos(labels[indice], self.lista_personajes, indice, "nombre", "personajes")
+        sw = self.ui.stackedWidget_3
+        indice = sw.currentIndex()
+        
+        pagina_actual = sw.currentWidget()
+        labels_en_pantalla = pagina_actual.findChildren(QLabel)
+        
+        labels_en_pantalla.sort(key=lambda x: x.objectName())
+
+        self.llenar_datos(labels_en_pantalla, self.lista_personajes, indice, "nombre", "personajes")
 
 
 
-    def llenar_datos(self, nombres_labels, lista, num_pag, atributo, subcarpeta):
-        puntero = lista.cabeza
-        # Saltamos los elementos de las páginas anteriores
-        for _ in range(num_pag * 10):
-            if puntero: puntero = puntero.siguiente
-        for i in range(len(nombres_labels)):
-            label = self.findChild(QLabel, nombres_labels[i])
-            if label:
+    def llenar_datos(self, lista_labels, lista, num_pag, atributo, subcarpeta):
+        try:
+            puntero = lista.cabeza
+            
+            # 1. Contar cuántos datos hay realmente (Verificación)
+            total = 0
+            temp = lista.cabeza
+            while temp:
+                total += 1
+                temp = temp.siguiente
+            print(f"DEBUG: Tienes {total} elementos en la lista de {subcarpeta}")
+
+            # 2. Saltar a la página correcta
+            for _ in range(num_pag * 10):
+                if puntero: 
+                    puntero = puntero.siguiente
+
+            # 3. Llenar los labels
+            for i, label in enumerate(lista_labels):
+                # Verificamos que el contenedor tenga un botón
+                contenedor = label.parent()
+                boton = contenedor.findChild(QToolButton)
+                
                 if puntero:
-                    texto = getattr(puntero.dato, atributo, "N/A")
-                    imagen = getattr(puntero.dato, "imagen", "")
+                    texto = getattr(puntero.dato, atributo, "Sin Nombre")
+                    imagen = getattr(puntero.dato, "imagen", "placeholder.png")
                     label.setText(f'"{texto}"')
-                    # Buscamos el botón en el mismo cuadro (frame/widget)
-                    boton = label.parent().findChild(QToolButton)
-                    # USAMOS LA SUBCARPETA CORRECTA (personajes o comics)
-                    ruta_imagen = os.path.join("assets", subcarpeta, imagen)
 
-                    # 🔥 AGREGA ESTA LÍNEA DE DEBUG AHORA 🔥
-                    print(f"🔍 DEBUG [{subcarpeta}]: Buscando archivo en -> {os.path.abspath(ruta_imagen)}")
+                    # Construimos la ruta
+                    ruta_imagen = os.path.join("assets", subcarpeta, imagen)
 
                     if boton:
                         if os.path.exists(ruta_imagen):
                             boton.setIcon(QIcon(ruta_imagen))
-                        else:    
-                            boton.setIcon(QIcon(os.path.join("assets", "img", "placeholder.png")))
+                        else:
+                            print(f"DEBUG: No hallé la foto: {ruta_imagen}")
+                            # Si tienes un placeholder, úsalo; si no, limpia el icono
+                            boton.setIcon(QIcon()) 
+                    
                     puntero = puntero.siguiente
                 else:
-                    label.setText("") 
+                    # Limpiar si ya no hay más personajes
+                    label.setText("---")
+                    if boton:
+                        boton.setIcon(QIcon())
+
+        except Exception as e:
+            print(f"¡ERROR CRÍTICO en llenar_datos!: {e}")
 
 
 if __name__ == "__main__":
