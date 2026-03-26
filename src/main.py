@@ -1,21 +1,21 @@
 from api.marvel_api import obtener_comics, obtener_personajes
-from utils.file_manager import guardar_datos, cargar_datos
+from utils.file_manager import guardar_datos
 
-def ejecutar_todo():
-    print("--- PROCESAMIENTO DE DATOS (ejemplos de funcionamiento) ---")
-    
-    print("Descargando de la API...")
-    datos_api = obtener_personajes()
-    
-    if datos_api:
-        guardar_datos(datos_api, "personajes_locales")
-        
-        print("Cargando desde archivo local para verificar...")
-        mis_datos_guardados = cargar_datos("personajes_locales")
-        
-        if mis_datos_guardados:
-            print(f" Se procesaron {len(mis_datos_guardados)} personajes.")
-            print(f"Primer personaje cargado: {mis_datos_guardados[0]['name']}")
-
+def generar_todo_el_contenido():
+    print("--- 🛠️ GENERANDO BASES DE DATOS LOCALES (100 elementos) ---")
+    print("\n[1/2] Descargando y guardando personajes...")
+    lista_personajes = obtener_personajes()
+    if lista_personajes:
+        guardar_datos(lista_personajes, "personajes_locales")
+        print(f"✅ Se guardaron {len(lista_personajes)} personajes.")
+    else:
+        print("❌ Error al obtener personajes.")
+    print("\n[2/2] Descargando y guardando cómics...")
+    lista_comics = obtener_comics()
+    if lista_comics:
+        guardar_datos(lista_comics, "comics_locales")
+        print(f"✅ Se guardaron {len(lista_comics)} cómics.")
+    else:
+        print("❌ Error al obtener cómics.")
 if __name__ == "__main__":
-    ejecutar_todo()
+    generar_todo_el_contenido()
