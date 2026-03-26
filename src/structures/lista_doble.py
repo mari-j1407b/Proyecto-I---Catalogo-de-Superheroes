@@ -39,3 +39,4 @@ class ListaDoble:
                 return actual.dato
             actual = actual.siguiente
         return None
+    
